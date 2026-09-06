@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v7
+      - name: Cache
+        uses: actions/cache@v7
+        with:
+          path: ~/.npm
+          key: deps-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Lint code
@@ -17,10 +22,15 @@ jobs:
         run: npm run test
   build:
     needs: test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v7
+      - name: Cache
+        uses: actions/cache@v7
+        with:
+          path: ~/.npm
+          key: deps-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Build website
@@ -32,12 +42,14 @@ jobs:
             path: dist          
   deploy:
     needs: build
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Downloading Artifacts
         uses: actions/download-artifact@v7
         with:
           name: dist-file
           path: dist
+      - name: Viewing the content
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
