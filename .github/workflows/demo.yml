@@ -35,7 +35,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Downloading Artifacts
-        uses: action/download-artifact@v7
+        uses: actions/download-artifact@v7
         with:
           name: dist-file
           path: dist
