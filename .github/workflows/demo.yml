@@ -10,7 +10,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v7
       - name: Cache
-        uses: actions/cache@v7
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: deps-${{ hashFiles('**/package-lock.json') }}
@@ -27,7 +27,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v7
       - name: Cache
-        uses: actions/cache@v7
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: deps-${{ hashFiles('**/package-lock.json') }}
